@@ -33,8 +33,8 @@ public class SomethingController {
     }
     
     @PostMapping
-    public ResponseEntity<SomethingDTO> createSomething(@RequestBody SomethingDTO Something) {
-        return ResponseEntity.ok(somethingDAL.createSomething(Something));
+    public ResponseEntity<SomethingDTO> createSomething(@RequestBody SomethingDTO something) {
+        return ResponseEntity.ok(somethingDAL.createSomething(something));
     }
     
     @PutMapping("/{id}")
@@ -48,9 +48,8 @@ public class SomethingController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteSomething(@PathVariable Long id) {
+    public void deleteSomething(@PathVariable Long id) {
         somethingDAL.deleteSomething(id);
-        return ResponseEntity.ok(null);
     }
     
 }
