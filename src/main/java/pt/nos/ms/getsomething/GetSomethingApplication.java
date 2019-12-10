@@ -15,6 +15,7 @@ public class GetSomethingApplication {
 		SpringApplication.run(GetSomethingApplication.class, args);
 	}
 
+
 	@Bean
 	public CommandLineRunner demo(SomethingRepository repo) {
 		return (args) -> {
