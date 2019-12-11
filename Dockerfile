@@ -5,5 +5,4 @@ COPY ./build/libs/GetSomething-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/some
 
 EXPOSE 8080
 
-cd ./usr/local/tomcat/bin
-RUN catalina.sh start
+CMD ["catalina.sh" "run"]
