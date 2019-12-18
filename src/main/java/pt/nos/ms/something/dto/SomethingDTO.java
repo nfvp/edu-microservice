@@ -1,4 +1,4 @@
-package pt.nos.ms.getsomething.dto;
+package pt.nos.ms.something.dto;
 
 import java.time.LocalDateTime;
 

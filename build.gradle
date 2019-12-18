@@ -23,7 +23,6 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -31,10 +30,17 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	testImplementation 'org.springframework.amqp:spring-rabbit-test'
 	runtimeOnly 'com.h2database:h2'
+	compile 'org.springframework.kafka:spring-kafka'
 }
 
 test {
 	useJUnitPlatform()
+}
+
+bootWar {
+    from('config/application.properties') {
+        into('WEB-INF/classes')
+    }
+    archiveFileName = 'something.war'
 }

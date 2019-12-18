@@ -1,24 +1,34 @@
-package pt.nos.ms.getsomething.dal;
+package pt.nos.ms.something.dal;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pt.nos.ms.getsomething.dao.SomethingDAO;
-import pt.nos.ms.getsomething.dto.SomethingDTO;
-import pt.nos.ms.getsomething.repository.SomethingRepository;
-import pt.nos.ms.getsomething.utils.MappingUtils;
+import pt.nos.ms.something.dao.SomethingDAO;
+import pt.nos.ms.something.dto.SomethingDTO;
+import pt.nos.ms.something.repository.SomethingRepository;
+import pt.nos.ms.something.services.ProducerMQ;
+import pt.nos.ms.something.utils.MappingUtils;
 
 @Component
 public class SomethingDAL {
     
     private @Autowired SomethingRepository somethingRepository;
     
+    private @Autowired ProducerMQ producerMQ;
     
-    public List<SomethingDTO> getSomethings() {
-        return somethingRepository.findAll().stream().map(MappingUtils::mapToSomethingDTO).collect(Collectors.toList());
+    
+    public List<SomethingDTO> getSomethings(String name) {
+        if (name == null) {
+            return somethingRepository.findAll().stream().map(MappingUtils::mapToSomethingDTO).collect(Collectors.toList());
+        } else {
+            return somethingRepository.findByOneNameOrAnotherName(name, name).stream().map(MappingUtils::mapToSomethingDTO).collect(Collectors.toList());
+        }
     }
     
     public SomethingDTO getSomething(Long id) throws Exception {
@@ -69,6 +79,16 @@ public class SomethingDAL {
     
     public void deleteSomething(Long id) {
         somethingRepository.deleteById(id);
+    }
+    
+    public List<SomethingDTO> uploadFile(Path path) throws IOException {
+        List<SomethingDTO> somethingsToAdd = Files.lines(path).map(MappingUtils::mapToSomethingDTO).collect(Collectors.toList());
+        List<SomethingDTO> somethingsAdded = somethingsToAdd.stream().map(this::createSomething).collect(Collectors.toList());
+        return somethingsAdded;
+    }
+    
+    public void sendMessage(String message) {
+        producerMQ.sendMessage(message);
     }
     
 }

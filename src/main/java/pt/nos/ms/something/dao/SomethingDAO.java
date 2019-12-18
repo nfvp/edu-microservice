@@ -1,4 +1,4 @@
-package pt.nos.ms.getsomething.dao;
+package pt.nos.ms.something.dao;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;

@@ -1,4 +1,4 @@
-package pt.nos.ms.getsomething.config;
+package pt.nos.ms.something.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

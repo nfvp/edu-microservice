@@ -1,7 +1,8 @@
-package pt.nos.ms.getsomething.utils;
+package pt.nos.ms.something.utils;
 
-import pt.nos.ms.getsomething.dao.SomethingDAO;
-import pt.nos.ms.getsomething.dto.SomethingDTO;
+import java.time.LocalDateTime;
+import pt.nos.ms.something.dao.SomethingDAO;
+import pt.nos.ms.something.dto.SomethingDTO;
 
 public final class MappingUtils {
     
@@ -19,6 +20,14 @@ public final class MappingUtils {
         result.setOneName(something.getFullName().split(" ")[0]);
         result.setAnotherName(something.getFullName().split(" ")[1]);
         result.setTimestamp(something.getTimestamp());
+        return result;
+    }
+    
+    public static SomethingDTO mapToSomethingDTO(String something) {
+        SomethingDTO result = new SomethingDTO();
+        result.setId(Long.valueOf(something.split("\\|")[0]));
+        result.setFullName(something.split("\\|")[1]);
+        result.setTimestamp(LocalDateTime.parse(something.split("\\|")[2]));
         return result;
     }
     

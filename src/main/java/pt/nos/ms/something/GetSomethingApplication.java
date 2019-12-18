@@ -1,12 +1,12 @@
-package pt.nos.ms.getsomething;
+package pt.nos.ms.something;
 
 import java.time.LocalDateTime;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import pt.nos.ms.getsomething.dao.SomethingDAO;
-import pt.nos.ms.getsomething.repository.SomethingRepository;
+import pt.nos.ms.something.dao.SomethingDAO;
+import pt.nos.ms.something.repository.SomethingRepository;
 
 @SpringBootApplication
 public class GetSomethingApplication {

@@ -1,4 +1,4 @@
-package pt.nos.ms.getsomething.exception;
+package pt.nos.ms.something.exception;
 
 import java.time.LocalDateTime;
 import org.springframework.http.HttpStatus;
@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import pt.nos.ms.getsomething.dto.ErrorMessageDTO;
+import pt.nos.ms.something.dto.ErrorMessageDTO;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

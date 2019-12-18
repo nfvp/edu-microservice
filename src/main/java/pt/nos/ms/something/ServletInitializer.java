@@ -1,4 +1,4 @@
-package pt.nos.ms.getsomething;
+package pt.nos.ms.something;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

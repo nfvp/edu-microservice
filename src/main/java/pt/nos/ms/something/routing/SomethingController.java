@@ -1,5 +1,12 @@
-package pt.nos.ms.getsomething.routing;
+package pt.nos.ms.something.routing;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pt.nos.ms.getsomething.dal.SomethingDAL;
-import pt.nos.ms.getsomething.dto.SomethingDTO;
+import org.springframework.web.multipart.MultipartFile;
+import pt.nos.ms.something.dal.SomethingDAL;
+import pt.nos.ms.something.dto.SomethingDTO;
 
 @RestController
 @RequestMapping("/somethings")
@@ -23,8 +32,8 @@ public class SomethingController {
     
     
     @GetMapping
-    public ResponseEntity<List<SomethingDTO>> getSomethings() {
-        return ResponseEntity.ok(somethingDAL.getSomethings());
+    public ResponseEntity<List<SomethingDTO>> getSomethings(@RequestParam(required = false) String name) {
+        return ResponseEntity.ok(somethingDAL.getSomethings(name));
     }
     
     @GetMapping("/{id}")
@@ -52,4 +61,19 @@ public class SomethingController {
         somethingDAL.deleteSomething(id);
     }
     
+    @PostMapping("/upload")
+    public ResponseEntity<List<SomethingDTO>> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        Path path = Paths.get(System.getProperty("java.io.tmpdir"), LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE) + "-" + file.getOriginalFilename());
+        OutputStream os = Files.newOutputStream(path);
+        os.write(file.getBytes());
+        os.close();
+        
+        return ResponseEntity.ok(somethingDAL.uploadFile(path));
+    }
+    
+    @PostMapping("/publish")
+    public void sendMessage(@RequestParam("message") String message) {
+        this.somethingDAL.sendMessage(message);
+    }
+
 }
