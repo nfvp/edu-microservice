@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +33,7 @@ public class SomethingController {
     
     
     @GetMapping
-    public ResponseEntity<List<SomethingDTO>> getSomethings(@RequestParam(required = false) String name) {
+    public ResponseEntity<List<SomethingDTO>> getSomethings(@RequestParam(required = false) Optional<String> name) {
         return ResponseEntity.ok(somethingDAL.getSomethings(name));
     }
     
@@ -73,7 +74,24 @@ public class SomethingController {
     
     @PostMapping("/publish")
     public void sendMessage(@RequestParam("message") String message) {
-        this.somethingDAL.sendMessage(message);
+        somethingDAL.sendMessage(message);
     }
+    
+    @GetMapping("/webservice")
+    public void callWebService() {
+        somethingDAL.getListWS();
+        somethingDAL.getListWithFiltersWS("something");
+        somethingDAL.getObjectWS(1);
 
+        SomethingDTO something = new SomethingDTO();
+        something.setId(1);
+        something.setFullName("One One");
+        something.setTimestamp(LocalDateTime.now());
+
+        somethingDAL.createObjectWS(something);
+        somethingDAL.updateObjectWS(something);
+        somethingDAL.patchObjectWS(something);
+        somethingDAL.deleteObjectWS(3);
+    }
+    
 }

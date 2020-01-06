@@ -9,11 +9,11 @@ public class ProducerMQ {
     
     private static final String TOPIC = "something";
 
-    private @Autowired KafkaTemplate<String, String> kafkaTemplate;
+    // private @Autowired KafkaTemplate<String, String> kafkaTemplate;
     
     
     public void sendMessage(String message) {
-        this.kafkaTemplate.send(TOPIC, message);
+    //     this.kafkaTemplate.send(TOPIC, message);
     }
     
 }

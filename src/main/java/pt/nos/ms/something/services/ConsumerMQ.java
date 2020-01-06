@@ -12,7 +12,7 @@ public class ConsumerMQ {
     
     private @Autowired SomethingDAL somethingDAL;
     
-    @KafkaListener(topics = "something", groupId = "consumer_group")
+    // @KafkaListener(topics = "something", groupId = "consumer_group")
     public void consumeMessage(String message) throws Exception {
         SomethingDTO something = new SomethingDTO();
         something.setTimestamp(LocalDateTime.now());
