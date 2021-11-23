@@ -1,4 +1,4 @@
-From tomcat:9.0.29-jdk13-openjdk-oracle
+From tomcat:9-jdk13-openjdk-oracle
 
 MAINTAINER rguedes@deloitte.pt
 
